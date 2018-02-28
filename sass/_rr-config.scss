@@ -1,0 +1,66 @@
+// maximum content width
+// If you are going for a full fluid design, set this
+// value to 100%.
+$rr-maxwidth: 72rem !default;
+
+// Divisions of the base grid size.
+$rr-line-height: 1rem !default;
+
+// How many grid squares will fit in the default line
+// height. The larger this number is, the more options
+// you have but the more difficult it becomes to establish
+// a vertical rhythm.
+$rr-grid-divisions: 2 !default;
+
+// By default, the last breakpoint is set to `$rr-maxwidth`
+// + `$rr-maxwidth-margin` to prevent a case where the
+// max content width sits against left and right margins.// 
+// If you are going for a full fluid design, set this value
+// to 0.
+$rr-maxwidth-margin: 4rem !default;
+
+// Blend mode for the grid/columns overlay. This might not
+// work on all browsers. (Looking at you, Edge.)
+$rr-blend-mode: exclusion !default;
+
+// IE support flag; should be `true` if you need to support
+// IE 11 and plan to use CSS grid layouts. (We do.)
+$rr-support-ie: true !default;
+
+// Default responsive settings, assuming a mobile-first
+// approach. The first breakpoint will be used as the 
+// default settings outside of a media query. If you do
+// not redefine a setting in a larger breakpoint it 
+// will inherit from one of the smaller breakpoints,
+// just as you would expect.
+
+$rr-grid-settings: ( 
+    s: ( 
+        mq: max-width, 
+        size: 35rem, 
+        columns: 4, 
+        gutter: 1rem / $rr-grid-divisions, 
+        offset: 1rem, 
+        vspace: 2,
+        column_color: rgba(128, 128, 128, .5),
+        baseline_color: rgba(128, 128, 128, .5)
+    ), 
+    m: ( 
+        mq: min-width, 
+        size: 35rem, 
+        columns: 8, 
+        gutter: 1rem,
+        offset: 2rem,
+        vspace: 3
+    ), 
+    l: ( 
+        size: 48rem, 
+        columns: 12
+    ), 
+    xl: ( 
+        size: $rr_maxwidth + 4rem, 
+        gutter: 2rem,
+        offset: 0,
+        vspace: 4
+    )
+) !default;

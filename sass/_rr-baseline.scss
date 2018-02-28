@@ -1,0 +1,102 @@
+// Render the columns as a repeating linear gradient.
+@function rr-columns($break: s) {
+    $gutter: rr-prop-for-breakpoint($break, gutter);
+    $color: rr-prop-for-breakpoint($break, column_color);
+    $columns: rr-prop-for-breakpoint($break, columns);
+    $colwidth: 100% / $columns;
+    @if not $color {
+        $color: rgba(0, 0, 0, .5);
+    }
+    @return repeating-linear-gradient( to left, transparent 0, transparent $gutter, $color $gutter, $color $colwidth);
+}
+
+// Render the baselines as a simple linear gradient. This gradient has 
+// small enough values that Safari goes batshit if you try to do it with a 
+// repeating linear gradient. 
+@function rr-baselines($break: s) {
+    $baseline: rr-gridbase();
+    $color: rr-prop-for-breakpoint($break, baseline_color);
+    @if not $color {
+        $color: rgba(0, 0, 0, .5);
+    }
+    @return linear-gradient( to top, #{$color} 0, #{$color} 1px, transparent 1px, transparent 100%);
+}
+
+// Pass a fontsize and how many grid-spaces of spacing you want around it,
+// and this will return font size and line-height declarations. Line-heights
+// are sent back with a unit (instead of unitless) in an attempt to keep 
+// the grid a little more bullet-proof. 
+//
+// If you want smaller line-height than the font size, you can pass negative 
+// values.
+//
+// If you want a line height close to 1, make sure the font size is a multiple
+// of the grid base and `$steps` is 0.
+@mixin rr-font-line-height($fontsize, $steps: 0) {
+    // Our grid unit
+    $gridbase: rr-gridbase(); // Match to the font size
+    $container: ceil($fontsize / $gridbase) * $gridbase; // Add the offset value to the text
+    $leading: $steps * $gridbase;
+    font-size: $fontsize;
+    line-height: $container + $leading;
+}
+
+// Add columns to a ::before pseudoelement, gridlines to an ::after pseudoelement.
+@mixin rr-grid-overlay {
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: $rr_maxwidth;
+        min-height: 100vh;
+        z-index: 1000;
+        pointer-events: none;
+        mix-blend-mode: $rr-blend-mode;
+        $breaks: rr-breakpoint_list();
+        @each $break in $breaks {
+            $offset: rr-prop-for-breakpoint($break, offset);
+            $gutter: rr-prop-for-breakpoint($break, gutter);
+            $cols: rr-prop-for-breakpoint($break, columns);
+            @include rr-break-directive($break) {
+                @if $offset>0 {
+                    width: calc(100% - (2 * #{$offset}));
+                }
+                @else {
+                    width: 100%;
+                }
+                background-image: rr-columns($break);
+                background-size: calc(100% + #{$gutter});
+            }
+        }
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        min-height: 100vh;
+        z-index: 1000;
+        pointer-events: none;
+        mix-blend-mode: $rr-blend-mode;
+        $breaks: rr-breakpoint_list();
+        @each $break in $breaks {
+            @if $break==nth($breaks, 1) {
+                background: transparent rr-baselines($break) scroll repeat left top / 100% rr-gridbase();
+            }
+            @else {
+                @include rr-break-directive($break) {
+                    background: transparent rr-baselines($break) scroll repeat left top / 100% rr-gridbase();
+                }
+            }
+        }
+    }
+}

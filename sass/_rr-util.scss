@@ -1,0 +1,90 @@
+// Gets the list of breakpoints; very useful for walking
+// the configuration.
+@function rr-breakpoint-list() {
+    @return map-keys($rr-grid-settings);
+}
+
+// Return a breakpoint configuration for the specified tag. 
+// The tag is the first-level value in the `$rr-grid-settings` map.
+// This does not compute mobile-first cascade; you need to 
+// use `$rr-combined-breakpoint` instead. 
+@function rr-breakpoint($tag) {
+    $config: $rr-grid-settings;
+    @if map-has-key($config, $tag) {
+        @return map-get($config, $tag);
+    }
+    @else {
+        @return map-get($config, nth(map-keys($config), 1));
+    }
+}
+
+//Returns the first breakpoint config settings.
+// Remember maps are 1-indexed.
+@function rr-breakpoint-first() {
+    @return rr-breakpoint(nth(rr-breakpoint-list(), 1));
+}
+
+// Compute the size of a grid square, computed in the unit of the
+// line height. This is currently simple math but I've abstracted
+// it out into a function in case we want to get more complicated
+// later.
+@function rr-gridbase() {
+    @return $rr-line-height / $rr-grid-divisions;
+}
+
+// Turns a number of grid subdivisions ($steps) into a size expressed
+// in the base grid units. For example, `rr-grid-units(1)` should 
+// return `0.5rem` if `$rr-base-grid` is `1rem` and `$rr-grid-divisions`
+// is `2`.
+@function rr-grid-units($steps) {
+    @return rr-gridbase() * $steps;
+}
+
+// Convenience mixin for building breakpoints around the media queries. 
+@mixin rr-break-directive($break) {
+    $mq: rr-prop-for-breakpoint($break, mq);
+    $size: rr-prop-for-breakpoint($break, size);
+    @media screen and ($mq: $size) {
+        @content;
+    }
+}
+
+// Return a breakpoint configuration for the specified tag. 
+// The tag is the first-level value in the `$rr-grid-settings` map. 
+// Unlike `rr-breakpoint`, this will look up values from earlier 
+// breakpoints. 
+@function rr-combined-breakpoint($break: s) {
+    $breaks: rr-breakpoint-list();
+    $work-map: rr-breakpoint-first();
+    $stop: index($breaks, $break);
+    @if not $stop {
+        @return $work-map;
+    } // Bounds-check the stop
+    @if ($stop > 1) {
+        @for $i from 2 through $stop {
+            $tag: nth($breaks, $i);
+            $work-map: map-merge($work-map, rr-breakpoint($tag));
+        }
+    }
+    @return $work-map;
+}
+
+// Given a breakpoint tag and a property name, return the property value. 
+// This looks for the property in the combined breakpoint.
+@function rr-prop-for-breakpoint($break, $prop) {
+    $bp: rr-combined-breakpoint($break);
+    @if map-has-key($bp, $prop) {
+        @return map-get($bp, $prop);
+    }
+    @return null;
+}
+
+// Given a breakpoint tag and a property name, return the property value. 
+// This looks for the property only in the specified breakpoint.
+@function rr-strict-prop-for-breakpoint($break, $prop) {
+    $bp: rr-breakpoint($break);
+    @if map-has-key($bp, $prop) {
+        @return map-get($bp, $prop);
+    }
+    @return null;
+}

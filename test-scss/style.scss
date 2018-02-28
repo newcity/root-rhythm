@@ -33,6 +33,19 @@ body {
     @include rr-slab-wrapper;
 }
 
+@for $i from 2 through 6 {
+    .slab-wrapper--#{$i}-up {
+        @include css-grid-columns($count: $i, $class-prefix: 'slab-wrapper');
+    }
+}
+
+.slab-wrapper__column {
+    text-align: center;
+    background-color: #ccf;
+    font-weight: bold;
+    @include rr-font-line-height(1.5rem, 2);
+}
+
 $slab-styles: slab--light slab--dark slab--brand slab--wrapper slab--transparent;
 
 @include rr-slab-adjacency($style-list: $slab-styles);
