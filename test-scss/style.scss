@@ -1,0 +1,52 @@
+@import '../sass/index.scss';
+
+html {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    @include rr-grid-overlay();
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: $rr-line-height;
+}
+
+.slab {
+    @include rr-slab;
+}
+
+.slab--light {
+    background-color: #e6e6e6;
+}
+
+.slab--dark {
+    background-color: #333;
+    color: #fff;
+}
+
+.slab--brand {
+    background-color: #bada55;
+}
+
+.slab-wrapper {
+    @include rr-slab-wrapper;
+}
+
+$slab-styles: slab--light slab--dark slab--brand slab--wrapper slab--transparent;
+
+@include rr-slab-adjacency($style-list: $slab-styles);
+
+$headerSize: 1rem;
+@for $h from 6 through 1 {
+    h#{$h} {
+        @include rr-font-line-height($fontsize: $headerSize, $steps: 2);
+    }
+    $headerSize: $headerSize + 0.2;
+}
+
+p {
+    @include rr-font-line-height($fontsize: 1rem, $steps: 1);
+}
