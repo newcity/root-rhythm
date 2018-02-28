@@ -2,8 +2,6 @@
 
 html {
     position: relative;
-    height: 100%;
-    width: 100%;
     @include rr-grid-overlay();
 }
 
