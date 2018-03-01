@@ -27,51 +27,6 @@ $rr-blend-mode: exclusion !default;
 // IE 11 and plan to use CSS grid layouts. (We do.)
 $rr-support-ie: true !default;
 
-$rr-grids: (
-    2: (
-        m : (
-            columns: 1fr 1fr,
-            flex-columns: 2
-        )
-    ),
-    3: (
-        m : (
-            columns: 1fr 1fr 1fr,
-            flex-columns: 3
-        )
-    ),
-    4: (
-        m : (
-            columns: 1fr 1fr,
-            flex-columns: 3
-        ),
-        l : (
-            columns: 1fr 1fr 1fr 1fr,
-            flex-columns: 4
-        )
-    ),
-    5: (
-        m : (
-            columns: 1fr 1fr 1fr,
-            flex-columns: 3
-        ),
-        l : (
-            columns: 1fr 1fr 1fr 1fr 1fr,
-            flex-columns: 5
-        )        
-    ),
-    6: (
-        m : (
-            columns: 1fr 1fr 1fr,
-            flex-columns: 3
-        ),
-        l : (
-            columns: 1fr 1fr 1fr 1fr 1fr 1fr,
-            flex-columns: 6
-        )        
-    ),            
-) !default;
-
 // Default responsive settings, assuming a mobile-first
 // approach. The first breakpoint will be used as the 
 // default settings outside of a media query. If you do
@@ -87,8 +42,8 @@ $rr-grid-settings: (
         gutter: 1rem / $rr-grid-divisions, 
         offset: 1rem, 
         vspace: 2,
-        column_color: rgba(128, 128, 128, .5),
-        baseline_color: rgba(128, 128, 128, .5)
+        column_color: rgba(128, 128, 128, .2),
+        baseline_color: rgba(128, 128, 128, .2)
     ), 
     m: ( 
         mq: min-width, 
@@ -109,3 +64,93 @@ $rr-grid-settings: (
         vspace: 4
     )
 ) !default;
+
+$rr-grids: (
+    2-up: (
+        m : (
+            columns: 1fr 1fr,
+            flex-columns: 2
+        )
+    ),
+    3-up: (
+        m : (
+            columns: 1fr 1fr 1fr,
+            flex-columns: 3
+        )
+    ),
+    4-up: (
+        m : (
+            columns: 1fr 1fr,
+            flex-columns: 3
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr,
+            flex-columns: 4
+        )
+    ),
+    5-up: (
+        m : (
+            columns: 1fr 1fr 1fr,
+            flex-columns: 3
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr 1fr,
+            flex-columns: 5
+        )        
+    ),
+    6-up: (
+        m : (
+            columns: 1fr 1fr 1fr,
+            flex-columns: 3
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr 1fr 1fr,
+            flex-columns: 6
+        )        
+    ),
+    sidebar-left: (
+        m: (
+            columns: 2fr 1fr,
+            areas: main side,
+            flex-columns: 2
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr,
+            areas: main main main side
+        )
+    ),
+    sidebar-right: (
+        m: (
+            columns: 1fr 2fr,
+            areas: side main,
+            flex-columns: 2
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr,
+            areas: side main main main
+        )
+    ),
+    major-left: (
+        m: (
+            columns: 1fr 1fr,
+            areas: major minor,
+            flex-columns: 2
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr 1fr 1fr,
+            areas: major major major major minor minor,
+        )        
+    ),
+    major-right: (
+        m: (
+            columns: 1fr 1fr,
+            areas: minor major,
+            flex-columns: 2
+        ),
+        l : (
+            columns: 1fr 1fr 1fr 1fr 1fr 1fr,
+            areas: minor minor major major major major,
+        )
+    )
+) !default;
+

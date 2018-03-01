@@ -69,6 +69,16 @@
     @return null;
 }
 
+@function rr-areas-for-template($template, $break) {
+    @if map-has-key($template, $break) {
+        $break-template: map-get($template, $break);
+        @if map-has-key($break-template, areas) {
+            @return map-get($break-template, areas);
+        }
+    }
+    @return null;
+}
+
 @function rr-flex-columns-for-template($template, $break) {
     @if map-has-key($template, $break) {
         $break-template: map-get($template, $break);
@@ -144,13 +154,6 @@ $global-width: $rr-maxwidth !default;
     @if not $class-prefix {
         $class-prefix: #{&};
     }
-
-    // IE 11 support
-    /*
-    @if ($rr-support-ie) {
-        @include _rr-ie-css-grid-columns($templates, $rr-grid-settings, $class-prefix);
-    }
-    */
         
     @supports ( grid-template-columns: 1px) {
         display: grid;
@@ -159,6 +162,7 @@ $global-width: $rr-maxwidth !default;
         @each $break in $breaks {
             $col-template: rr-columns-for-template($templates,$break);
             $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
+            $grid-areas: rr-areas-for-template($templates,$break);
             @if $col-template or $grid-gap {
                 @include rr-break-directive($break) {
                     @if $grid-gap {
@@ -166,6 +170,9 @@ $global-width: $rr-maxwidth !default;
                     }
                     @if $col-template {
                         grid-template-columns: $col-template;
+                    }
+                    @if $grid-areas {
+                        grid-template-areas: "#{$grid-areas}";
                     }
                 }
             }            
