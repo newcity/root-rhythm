@@ -1,3 +1,8 @@
+// Creates a slab for a slab layout. 
+// Layout options are provided in other mixins
+// All options are driven by the global configuration
+// Slabs bring their own padding to the party which 
+// we will override in some special circumstances.
 @mixin rr-slab {
     $breaks: rr-breakpoint_list();
     @each $break in $breaks {
@@ -13,9 +18,29 @@
     }
 }
 
-@mixin rr-slab-wrapper() {
+// This creates a slab wrapper constrained to the main content width
+@mixin rr-slab-wrapper($margins: false) {
     max-width: $rr-maxwidth;
     margin: 0 auto;
+
+    @if not $margins {
+        // Get rid of top margins on the first child,
+        // bottom margins on the second so those
+        // margins don't pop out of the wrapper.
+        > :first-child {
+            margin-top: 0;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// This creates a full-bleed slab wrapper
+@mixin rr-slab-full-fullbleed {
+    max-width: none;
+    margin: 0;
     > :first-child {
         margin-top: 0;
     }
@@ -24,16 +49,34 @@
     }
 }
 
-@mixin rr-slab-full-fullbleed {
-    max-width: none;
-}
-
+// Pass this a list of class names (without the '.' prefix) and 
+// adjacency classes that collapse padding between the 
 @mixin rr-slab-adjacency($style-list) {
     @each $style in $style-list {
         .#{$style}+.#{$style} {
             padding-top: 0;
         }
     }
+}
+
+@function rr-columns-for-template($template, $break) {
+    @if map-has-key($template, $break) {
+        $break-template: map-get($template, $break);
+        @if map-has-key($break-template, columns) {
+            @return map-get($break-template, columns);
+        }
+    }
+    @return null;
+}
+
+@function rr-flex-columns-for-template($template, $break) {
+    @if map-has-key($template, $break) {
+        $break-template: map-get($template, $break);
+        @if map-has-key($break-template, flex-columns) {
+            @return map-get($break-template, flex-columns);
+        }
+    }
+    @return null;
 }
 
 // Code below is by Jesse Janowiak of NewCity; currently 
@@ -95,39 +138,64 @@ $global-width: $rr-maxwidth !default;
 //
 // </div>
 
-@mixin css-grid-columns( 
-        $count: 3, 
-        $gutter: rr-prop-for-breakpoint(m, gutter), 
-        $gutter-s: rr-prop-for-breakpoint(s, gutter),
-        $class-prefix: '', 
-        $breakpoint: 'm', 
-        $reverse: false) {
-    
+@mixin css-grid-columns($templates, $config: $rr-grid-settings, $class-prefix:null, $reverse: false ) {
+
     $medium-size: rr-prop-for-breakpoint(m, size);
+    @if not $class-prefix {
+        $class-prefix: #{&};
+    }
+
+    // IE 11 support
+    /*
+    @if ($rr-support-ie) {
+        @include _rr-ie-css-grid-columns($templates, $rr-grid-settings, $class-prefix);
+    }
+    */
         
-    @if ( $rr-support-ie) {
-        $medium-size: rr-prop-for-breakpoint(m, size);
-        @media (max-width: #{$medium-size}) {
-            $ms-column-defs: 1fr;
-            @if $gutter-s is not sameas(0) {
-                @for $i from 2 through $count {
-                    $ms-column-defs: $ms-column-defs $gutter-s 1fr;
+    @supports ( grid-template-columns: 1px) {
+        display: grid;
+        
+        $breaks: rr-breakpoint_list();
+        @each $break in $breaks {
+            $col-template: rr-columns-for-template($templates,$break);
+            $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
+            @if $col-template or $grid-gap {
+                @include rr-break-directive($break) {
+                    @if $grid-gap {
+                        grid-gap: rr-prop-for-breakpoint($break, gutter);
+                    }
+                    @if $col-template {
+                        grid-template-columns: $col-template;
+                    }
                 }
-            }
-            @else {
-                @for $i from 2 through $count {
-                    $ms-column-defs: $ms-column-defs 1fr;
-                }
-            }
-            -ms-grid-columns: $ms-column-defs;
+            }            
         }
-        @media (min-width: #{$medium-size}) {
-            display: -ms-grid;
+    }
+}
+
+@mixin _rr-ie-css-grid-columns($templates, $class-prefix: '', $reverse: false) {
+    // Old rules for IE
+    display: flex;
+    $breaks: rr-breakpoint_list();
+    @each $break in $breaks {
+        $gutter: rr-prop-for-breakpoint($break, gutter);
+        @include rr-break-directive($break) {
+
         }
+    }
+}
+
+@mixin _rr-ie-css-grid-columns_old($count: 3, $class-prefix: '', $reverse: false) {
+    $gutter-s: rr-prop-for-breakpoint(s, gutter);
+    $gutter: rr-prop-for-breakpoint(m, gutter);
+    $medium-size: rr-prop-for-breakpoint(m, size);
+
+
+    @media (max-width: #{$medium-size}) {
         $ms-column-defs: 1fr;
-        @if $gutter is not sameas(0) {
+        @if $gutter-s is not sameas(0) {
             @for $i from 2 through $count {
-                $ms-column-defs: $ms-column-defs $gutter 1fr;
+                $ms-column-defs: $ms-column-defs $gutter-s 1fr;
             }
         }
         @else {
@@ -136,56 +204,37 @@ $global-width: $rr-maxwidth !default;
             }
         }
         -ms-grid-columns: $ms-column-defs;
-        #{$class-prefix}__column {
-            -ms-grid-column-span: 1;
-            -ms-grid-row: 1;
-            @for $i from 1 through $count {
-                @if ( $reverse) {
-                    @include reverse-grid-columns( $count: $count, $class-prefix: $class-prefix, $breakpoint: $breakpoint)
-                }
-                @else {
-                    &:nth-child(#{$i}) {
-                        -ms-grid-column: $i * 2 - 1;
-                    }
-                }
-            }
-        }
-        -ms-grid-rows: auto;
     }
-    @supports ( grid-template-columns: 1px) {
-        display: grid;
-        @if ($rr-support-ie) {
-            grid-column-gap: $gutter-s;
-            @media (min-width: #{$medium-size}) {
-                grid-column-gap: $gutter;
-            }
-            margin-bottom: -$gutter;
-            #{$class-prefix}__column {
-                padding-bottom: $gutter;
-            }
-            @media (min-width: #{$medium-size}) {
-                margin-bottom: 0;
-                #{$class-prefix}__column {
-                    padding-bottom: 0;
-                }
-            }
-        }
-        @else {
-            grid-column-gap: $gutter-s;
-            grid-row-gap: $gutter;
-            @media (min-width: #{$medium-size}) {
-                grid-gap: $gutter;
-            }
-        }
-        @media (min-width: #{$medium-size}) { 
-            $column-defs: [column-1] 1fr;
-            @for $i from 2 through $count {
-                $column-defs: $column-defs [column-#{$i}] 1fr;
-            }
-            $column-defs: $column-defs [row-end];
-            grid-template-columns: $column-defs;
+    @media (min-width: #{$medium-size}) {
+        display: -ms-grid;
+    }
+    $ms-column-defs: 1fr;
+    @if $gutter is not sameas(0) {
+        @for $i from 2 through $count {
+            $ms-column-defs: $ms-column-defs $gutter 1fr;
         }
     }
+    @else {
+        @for $i from 2 through $count {
+            $ms-column-defs: $ms-column-defs 1fr;
+        }
+    }
+    -ms-grid-columns: $ms-column-defs;
+    #{$class-prefix}__column {
+        -ms-grid-column-span: 1;
+        -ms-grid-row: 1;
+        @for $i from 1 through $count {
+            @if ( $reverse) {
+                @include reverse-grid-columns( $count: $count, $class-prefix: $class-prefix, $breakpoint: $breakpoint)
+            }
+            @else {
+                &:nth-child(#{$i}) {
+                    -ms-grid-column: $i * 2 - 1;
+                }
+            }
+        }
+    }
+    -ms-grid-rows: auto;
 }
 
 // `reverse-grid-columns` mixin

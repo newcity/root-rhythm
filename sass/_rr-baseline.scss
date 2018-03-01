@@ -89,13 +89,8 @@
         mix-blend-mode: $rr-blend-mode;
         $breaks: rr-breakpoint_list();
         @each $break in $breaks {
-            @if $break==nth($breaks, 1) {
+            @include rr-break-directive($break) {
                 background: transparent rr-baselines($break) scroll repeat left top / 100% rr-gridbase();
-            }
-            @else {
-                @include rr-break-directive($break) {
-                    background: transparent rr-baselines($break) scroll repeat left top / 100% rr-gridbase();
-                }
             }
         }
     }

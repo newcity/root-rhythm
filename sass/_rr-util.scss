@@ -1,7 +1,7 @@
 // Gets the list of breakpoints; very useful for walking
 // the configuration.
-@function rr-breakpoint-list() {
-    @return map-keys($rr-grid-settings);
+@function rr-breakpoint-list($config: $rr-grid-settings) {
+    @return map-keys($config);
 }
 
 // Return a breakpoint configuration for the specified tag. 
@@ -18,7 +18,12 @@
     }
 }
 
-//Returns the first breakpoint config settings.
+@function rr-first-breakpoint($break, $config: $rr-grid-settings) {
+    $breaks: rr-breakpoint-list($config);
+    @return $break==nth($breaks, 1);
+}
+
+// Returns the first breakpoint config settings.
 // Remember maps are 1-indexed.
 @function rr-breakpoint-first() {
     @return rr-breakpoint(nth(rr-breakpoint-list(), 1));
@@ -41,11 +46,18 @@
 }
 
 // Convenience mixin for building breakpoints around the media queries. 
-@mixin rr-break-directive($break) {
-    $mq: rr-prop-for-breakpoint($break, mq);
-    $size: rr-prop-for-breakpoint($break, size);
-    @media screen and ($mq: $size) {
+@mixin rr-break-directive($break,$config: $rr-grid-settings) {
+    @if rr-first-breakpoint($break,$config) {
+        /* Base Breakpoint */
         @content;
+        /* End base breakpoint */
+    }
+    @else {
+        $mq: rr-prop-for-breakpoint($break, mq);
+        $size: rr-prop-for-breakpoint($break, size);
+        @media screen and ($mq: $size) {
+            @content;
+        }        
     }
 }
 

@@ -33,13 +33,17 @@ body {
     @include rr-slab-wrapper;
 }
 
+.grid-wrapper {
+    @include rr-slab-wrapper($margins: true);
+}
+
 @for $i from 2 through 6 {
-    .slab-wrapper--#{$i}-up {
-        @include css-grid-columns($count: $i, $class-prefix: 'slab-wrapper');
+    .grid-wrapper--#{$i}-up {
+        @include css-grid-columns(map-get($rr-grids,$i), $class-prefix: 'grid-wrapper');
     }
 }
 
-.slab-wrapper__column {
+.grid-wrapper__column {
     text-align: center;
     background-color: #ccf;
     font-weight: bold;
