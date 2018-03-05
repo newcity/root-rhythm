@@ -47,7 +47,8 @@ $styles: map-keys($rr-grids);
 
 .grid-wrapper__column {
     text-align: center;
-    box-shadow: currentColor 0 0 0 1px inset;
+    border: 4px currentColor solid;
+    padding: rr-grid-remainder(4px, 4) rr-grid-remainder(4px, 1);
     font-weight: bold;
     @include rr-font-line-height(1.5rem, 2);
 }
