@@ -1,0 +1,319 @@
+html {
+  position: relative; }
+  html::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 72rem;
+    min-height: 100vh;
+    z-index: 1000;
+    pointer-events: none;
+    mix-blend-mode: exclusion;
+    /* Base Breakpoint */
+    width: calc(100% - (2 * 1rem));
+    background-image: repeating-linear-gradient(to left, transparent 0, transparent 0.5rem, rgba(128, 128, 128, 0.2) 0.5rem, rgba(128, 128, 128, 0.2) 25%);
+    background-size: calc(100% + 0.5rem);
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      html::before {
+        width: calc(100% - (2 * 2rem));
+        background-image: repeating-linear-gradient(to left, transparent 0, transparent 1rem, rgba(128, 128, 128, 0.2) 1rem, rgba(128, 128, 128, 0.2) 12.5%);
+        background-size: calc(100% + 1rem); } }
+    @media screen and (min-width: 48rem) {
+      html::before {
+        width: calc(100% - (2 * 2rem));
+        background-image: repeating-linear-gradient(to left, transparent 0, transparent 1rem, rgba(128, 128, 128, 0.2) 1rem, rgba(128, 128, 128, 0.2) 8.33333%);
+        background-size: calc(100% + 1rem); } }
+    @media screen and (min-width: 76rem) {
+      html::before {
+        width: 100%;
+        background-image: repeating-linear-gradient(to left, transparent 0, transparent 2rem, rgba(128, 128, 128, 0.2) 2rem, rgba(128, 128, 128, 0.2) 8.33333%);
+        background-size: calc(100% + 2rem); } }
+  html::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 100vh;
+    z-index: 1000;
+    pointer-events: none;
+    mix-blend-mode: exclusion;
+    /* Base Breakpoint */
+    background: transparent linear-gradient(to top, rgba(128, 128, 128, 0.2) 0, rgba(128, 128, 128, 0.2) 1px, transparent 1px, transparent 100%) scroll repeat left top/100% 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      html::after {
+        background: transparent linear-gradient(to top, rgba(128, 128, 128, 0.2) 0, rgba(128, 128, 128, 0.2) 1px, transparent 1px, transparent 100%) scroll repeat left top/100% 0.5rem; } }
+    @media screen and (min-width: 48rem) {
+      html::after {
+        background: transparent linear-gradient(to top, rgba(128, 128, 128, 0.2) 0, rgba(128, 128, 128, 0.2) 1px, transparent 1px, transparent 100%) scroll repeat left top/100% 0.5rem; } }
+    @media screen and (min-width: 76rem) {
+      html::after {
+        background: transparent linear-gradient(to top, rgba(128, 128, 128, 0.2) 0, rgba(128, 128, 128, 0.2) 1px, transparent 1px, transparent 100%) scroll repeat left top/100% 0.5rem; } }
+
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1rem; }
+
+.slab {
+  padding: 1rem 1rem; }
+  @media screen and (min-width: 35rem) {
+    .slab {
+      padding: 1.5rem 2rem; } }
+  @media screen and (min-width: 48rem) {
+    .slab {
+      padding: 1.5rem 2rem; } }
+  @media screen and (min-width: 76rem) {
+    .slab {
+      padding: 2rem 0; } }
+
+.slab--light {
+  background-color: #e6e6e6; }
+
+.slab--dark {
+  background-color: #333;
+  color: #fff; }
+
+.slab--brand {
+  background-color: #bada55; }
+
+.slab-wrapper {
+  max-width: 72rem;
+  margin: 0 auto; }
+  .slab-wrapper > :first-child {
+    margin-top: 0; }
+  .slab-wrapper > :last-child {
+    margin-bottom: 0; }
+
+.grid-wrapper {
+  max-width: 72rem;
+  margin: 0 auto; }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--2-up {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--2-up {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--2-up {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--3-up {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--3-up {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr 1fr; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--3-up {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--4-up {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--4-up {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--4-up {
+        grid-template-columns: 1fr 1fr 1fr 1fr; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--4-up {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--5-up {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--5-up {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr 1fr; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--5-up {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--5-up {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--6-up {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--6-up {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr 1fr; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--6-up {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--6-up {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--sidebar-left {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--sidebar-left {
+        grid-gap: 1rem;
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas: "main side"; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--sidebar-left {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: "main main main side"; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--sidebar-left {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--sidebar-right {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--sidebar-right {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: "side main"; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--sidebar-right {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: "side main main main"; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--sidebar-right {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--major-left {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--major-left {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "major minor"; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--major-left {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: "major major major major minor minor"; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--major-left {
+        grid-gap: 2rem; } } }
+
+@supports (grid-template-columns: 1px) {
+  .grid-wrapper--major-right {
+    display: grid;
+    /* Base Breakpoint */
+    grid-gap: 0.5rem;
+    /* End base breakpoint */ }
+    @media screen and (min-width: 35rem) {
+      .grid-wrapper--major-right {
+        grid-gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "minor major"; } }
+    @media screen and (min-width: 48rem) {
+      .grid-wrapper--major-right {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: "minor minor major major major major"; } }
+    @media screen and (min-width: 76rem) {
+      .grid-wrapper--major-right {
+        grid-gap: 2rem; } } }
+
+.grid-wrapper__column {
+  text-align: center;
+  border: 4px currentColor solid;
+  padding: calc(2rem - 4px) calc(0.5rem - 4px);
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 2.5rem; }
+
+.grid-wrapper__column--major {
+  grid-area: major; }
+
+.grid-wrapper__column--minor {
+  grid-area: minor; }
+
+.grid-wrapper__column--article {
+  grid-area: main; }
+
+.grid-wrapper__column--sidebar {
+  grid-area: side; }
+
+.slab--light + .slab--light {
+  padding-top: 0; }
+
+.slab--dark + .slab--dark {
+  padding-top: 0; }
+
+.slab--brand + .slab--brand {
+  padding-top: 0; }
+
+.slab--wrapper + .slab--wrapper {
+  padding-top: 0; }
+
+.slab--transparent + .slab--transparent {
+  padding-top: 0; }
+
+h6 {
+  font-size: 1rem;
+  line-height: 2rem; }
+
+h5 {
+  font-size: 1.2rem;
+  line-height: 2.5rem; }
+
+h4 {
+  font-size: 1.4rem;
+  line-height: 2.5rem; }
+
+h3 {
+  font-size: 1.6rem;
+  line-height: 3rem; }
+
+h2 {
+  font-size: 1.8rem;
+  line-height: 3rem; }
+
+h1 {
+  font-size: 2rem;
+  line-height: 3rem; }
+
+p {
+  font-size: 1rem;
+  line-height: 1.5rem; }
