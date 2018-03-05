@@ -2,6 +2,40 @@
 
 Root-rhythm is a grid-layout/baseline typography library with several helpers intended to make it easier to lock down layouts to a specific rhythm. 
 
+## Function reference
+
+### Grid / Baseline functions
+
+`@mixin rr-grid-overlay()` : Creates `::before` and `::after` pseudo-elements on whatever container this is added to. The `::before` pseudo-element contains the column overlay and the `::after` container displays the baselines.
+
+`@mixin rr-font-line-height()` : Pass a font size and the number of extra grid units you want the text to occupy and this mixin will generate both font-size and line-height properties for you. Using this ensures your line height always snaps to a grid unit.
+
+`@mixin rr-slab` : Generates the responsive code for a slab, or horizontal container, based on the global configuration. Using this makes sure your padding across slabs is uniform.
+
+`@mixin rr-slab-wrapper($margins: false)`: Generates the content wrapper for a slab, ensuring max-width and margins are properly set. `$margins: false` will strip the top margin from the first child and the bottom margin from the last child so those margins do not overflow the container.
+
+`@mixin rr-slab-adjacency($style-list)`: Pass this a list of slab styles (without the preceding `.`) and this mixin will generate all necessary adjacency rules to ensure the spacing between two slabs of the same style is compressed. 
+
+`@mixin css-grid-colums($templates, $config, $class-prefix, $reverse)` generates CSS grid layouts from the configuration options for the grid.
+
+### Utilities
+
+`@function rr-breakpoint-list($config: $rr-grid-settings)`: Provides a list of breakpoints in a grid configuration object. 
+
+`@function rr-breakpoint($tag)`: Returns the configuration for a specific breakpoint.
+
+`@function rr-gridbase()`: Returns the size of one grid unit (in the same units as the line-height definition).
+
+`@function rr-grid-remainder($offset, $steps)`: I use this a lot for objects with borders; pass the border width as the offset and the number of grid steps the border needs to go around and this will return a value to use for padding that ensures the border matches the grid layout.
+
+`@mixin rr-break-directive($break, $config)`: Block-level mixin that will wrap the content of the block in a media query defined in `$config` and breakpoint `$break`. 
+
+`@function rr-combined-breakpoint($break)`: Returns the specified breakpoint configuration as well as all properties defined in earlier breakpoints but not overridden in the current one. This … makes more sense when you do it.
+
+`@function rr-prop-for-breakpoint($break, $prop)`: Returns the specified property taking into consideration inheritance from earlier breakpoints.
+
+`@function rr-strict-prop-for-breakpoint($break, $prop)`: Returns the specified property *only* if it is defined in the current breakpoint.
+
 ## Configuration
 
 RR provides a number of sensible configuration variables which you can override with your own, probably less sensible, values if you need to. Some of the values are dependent upon responsive breakpoints. Sizes are generally defined in `rems` to provide a good balance between predictability and scalability.
@@ -179,3 +213,5 @@ $rr-grids: (
     )
 ) !default;
 ```
+
+### 
