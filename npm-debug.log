@@ -1,0 +1,136 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/johnwilliams/NewCity/root-rhythm',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/johnwilliams/.npm/root-rhythm/1.2.2/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/johnwilliams/.npm correctMkdir not in flight; initializing
+10 info lifecycle root-rhythm@1.2.2~prepublish: root-rhythm@1.2.2
+11 silly lifecycle root-rhythm@1.2.2~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/johnwilliams/.npm/root-rhythm/1.2.2/package.tgz',
+12 verbose tar pack   '/Users/johnwilliams/NewCity/root-rhythm' ]
+13 verbose tarball /Users/johnwilliams/.npm/root-rhythm/1.2.2/package.tgz
+14 verbose folder /Users/johnwilliams/NewCity/root-rhythm
+15 verbose addLocalTarball adding from inside cache /Users/johnwilliams/.npm/root-rhythm/1.2.2/package.tgz
+16 verbose correctMkdir /Users/johnwilliams/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd root-rhythm@1.2.2
+18 verbose afterAdd /Users/johnwilliams/.npm/root-rhythm/1.2.2/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/johnwilliams/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/johnwilliams/.npm/root-rhythm/1.2.2/package/package.json written
+21 silly publish { name: 'root-rhythm',
+21 silly publish   version: '1.2.2',
+21 silly publish   description: 'Baseline / column layout utilities for web development. Uses Sass.',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/newcity/root-rhythm.git' },
+21 silly publish   keywords: [ 'typography', 'baseline', 'eyeglass-module' ],
+21 silly publish   eyeglass: { sassDir: 'sass', name: 'root-rhythm', needs: '^1.3.0' },
+21 silly publish   author: { name: 'NewCity/John Williams' },
+21 silly publish   license: 'Apache-2.0',
+21 silly publish   bugs: { url: 'https://github.com/newcity/root-rhythm/issues' },
+21 silly publish   homepage: 'https://github.com/newcity/root-rhythm#readme',
+21 silly publish   devDependencies:
+21 silly publish    { 'browser-sync': '^2.23.6',
+21 silly publish      gulp: '^3.9.1',
+21 silly publish      'gulp-plumber': '^1.2.0',
+21 silly publish      'gulp-sass': '^3.1.0' },
+21 silly publish   readme: '# root-rhythm\n\nRoot-rhythm is a grid-layout/baseline typography library with several helpers intended to make it easier to lock down layouts to a specific rhythm. \n\n## Function reference\n\n### Grid / Baseline functions\n\n`@mixin rr-grid-overlay()` : Creates `::before` and `::after` pseudo-elements on whatever container this is added to. The `::before` pseudo-element contains the column overlay and the `::after` container displays the baselines.\n\n`@mixin rr-font-line-height()` : Pass a font size and the number of extra grid units you want the text to occupy and this mixin will generate both font-size and line-height properties for you. Using this ensures your line height always snaps to a grid unit.\n\n`@mixin rr-slab` : Generates the responsive code for a slab, or horizontal container, based on the global configuration. Using this makes sure your padding across slabs is uniform.\n\n`@mixin rr-slab-wrapper($margins: false)`: Generates the content wrapper for a slab, ensuring max-width and margins are properly set. `$margins: false` will strip the top margin from the first child and the bottom margin from the last child so those margins do not overflow the container.\n\n`@mixin rr-slab-adjacency($style-list)`: Pass this a list of slab styles (without the preceding `.`) and this mixin will generate all necessary adjacency rules to ensure the spacing between two slabs of the same style is compressed. \n\n`@mixin css-grid-colums($templates, $config, $class-prefix, $reverse)` generates CSS grid layouts from the configuration options for the grid.\n\n### Utilities\n\n`@function rr-breakpoint-list($config: $rr-grid-settings)`: Provides a list of breakpoints in a grid configuration object. \n\n`@function rr-breakpoint($tag)`: Returns the configuration for a specific breakpoint.\n\n`@function rr-gridbase()`: Returns the size of one grid unit (in the same units as the line-height definition).\n\n`@function rr-grid-remainder($offset, $steps)`: I use this a lot for objects with borders; pass the border width as the offset and the number of grid steps the border needs to go around and this will return a value to use for padding that ensures the border matches the grid layout.\n\n`@mixin rr-break-directive($break, $config)`: Block-level mixin that will wrap the content of the block in a media query defined in `$config` and breakpoint `$break`. \n\n`@function rr-combined-breakpoint($break)`: Returns the specified breakpoint configuration as well as all properties defined in earlier breakpoints but not overridden in the current one. This … makes more sense when you do it.\n\n`@function rr-prop-for-breakpoint($break, $prop)`: Returns the specified property taking into consideration inheritance from earlier breakpoints.\n\n`@function rr-strict-prop-for-breakpoint($break, $prop)`: Returns the specified property *only* if it is defined in the current breakpoint.\n\n## Configuration\n\nRR provides a number of sensible configuration variables which you can override with your own, probably less sensible, values if you need to. Some of the values are dependent upon responsive breakpoints. Sizes are generally defined in `rems` to provide a good balance between predictability and scalability.\n\n### Single-value variables\n\n`$rr-maxwidth: 72rem !default`: Maximum width of the content area. If you are going for a full fluid design, this value will be 0. \n\n`$rr-maxwidth-margin: 4rem !default`: How much space to put around the max content area before the `xl` breakpoint kicks in. If you are going for a full fluid design, this value should be 0.\n\n`$rr-line-height: 1rem !default`: The 0-level line height.\n\n`$rr-grid-divisions: 2 !default`: How many grid squares will fit vertically inside the line height. Ideally this will be a whole number. \n\n`$rr-blend-mode: exclusion !default`: What blend mode to use on the grid overlay. Not supported by microsoft browsers.\n\n`$rr-support-ie: true !default`: Whether or not an attempt should be made to support IE 11 CSS grids. (IE < 10 is not supported.)\n\n### Grid settings\n\nDefault responsive settings, assuming a mobile-first approach. The first breakpoint will be used as the  default settings outside of a media query. If you do not redefine a setting in a larger breakpoint it will inherit from one of the smaller breakpoints, just as you would expect. \n\nBreakpoint names are arbitrary; the first breakpoint is used as the default settings.\n\nProperty values: \n\n`mq`: either `max-width` or `min-width`.\n\n`size`: The breakpoint position.\n\n`columns:` How many content columns to show at this breakpoint.\n\n`gutter:` How wide the gutters between the columns should be at this breakpoint.\n\n`offset:` How much space to reserve as margins on the left and right of the layout at this breakpoint.\n\n`vspace:` The default spacing between "slabs" at this breakpoint.\n\n`column_color:` The color of the column in the grid overlay.\n\n`baseline_color: ` The color of the baseline grid. \n\nAbsent values in larger breakpoints inherit the most recently defined value from a previous breakpoint.\n\n```\n$rr-grid-settings: ( \n    s: ( \n        mq: max-width, \n        size: 35rem, \n        columns: 4, \n        gutter: 1rem / $rr-grid-divisions, \n        offset: 1rem, \n        vspace: 2,\n        column_color: rgba(128, 128, 128, .2),\n        baseline_color: rgba(128, 128, 128, .2)\n    ), \n    m: ( \n        mq: min-width, \n        size: 35rem, \n        columns: 8, \n        gutter: 1rem,\n        offset: 2rem,\n        vspace: 3\n    ), \n    l: ( \n        size: 48rem, \n        columns: 12\n    ), \n    xl: ( \n        size: $rr_maxwidth + 4rem, \n        gutter: 2rem,\n        offset: 0,\n        vspace: 4\n    )\n) !default;\n```\n\n### CSS Grid settings\n\nThis map defines different grid layouts for the CSS Grid functions. Each entry is a map of responsive configuration values. Breakpoint labels should match those in the grid map above.\n\n`$columns` : a CSS-grid definition of the columns and their sizes. This can be different from the grid column definitions above.\n\n`$flex-columns` : How many columns to use in the flex layout fallback for IE 11.\n\n`$areas` : Named areas to match the column definitions.\n\n```\n$rr-grids: (\n    2-up: (\n        m : (\n            columns: 1fr 1fr,\n            flex-columns: 2\n        )\n    ),\n    3-up: (\n        m : (\n            columns: 1fr 1fr 1fr,\n            flex-columns: 3\n        )\n    ),\n    4-up: (\n        m : (\n            columns: 1fr 1fr,\n            flex-columns: 3\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr,\n            flex-columns: 4\n        )\n    ),\n    5-up: (\n        m : (\n            columns: 1fr 1fr 1fr,\n            flex-columns: 3\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr 1fr,\n            flex-columns: 5\n        )        \n    ),\n    6-up: (\n        m : (\n            columns: 1fr 1fr 1fr,\n            flex-columns: 3\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr 1fr 1fr,\n            flex-columns: 6\n        )        \n    ),\n    sidebar-left: (\n        m: (\n            columns: 2fr 1fr,\n            areas: main side,\n            flex-columns: 2\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr,\n            areas: main main main side\n        )\n    ),\n    sidebar-right: (\n        m: (\n            columns: 1fr 2fr,\n            areas: side main,\n            flex-columns: 2\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr,\n            areas: side main main main\n        )\n    ),\n    major-left: (\n        m: (\n            columns: 1fr 1fr,\n            areas: major minor,\n            flex-columns: 2\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr 1fr 1fr,\n            areas: major major major major minor minor,\n        )        \n    ),\n    major-right: (\n        m: (\n            columns: 1fr 1fr,\n            areas: minor major,\n            flex-columns: 2\n        ),\n        l : (\n            columns: 1fr 1fr 1fr 1fr 1fr 1fr,\n            areas: minor minor major major major major,\n        )\n    )\n) !default;\n```\n\n### ',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '21b2f3673fa3c7bc7647015fa9c06e4af9fd56bf',
+21 silly publish   _id: 'root-rhythm@1.2.2',
+21 silly publish   _shasum: 'fddc313172f51e131d0cf223b87a9b02eca6f840',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name root-rhythm
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'root-rhythm',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'root-rhythm',
+26 silly mapToRegistry   name: 'root-rhythm',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/root-rhythm
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/johnwilliams/.npm/root-rhythm/1.2.2/package.tgz
+30 verbose request uri https://registry.npmjs.org/root-rhythm
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 9:52:40 AM
+33 verbose request using bearer token for auth
+34 verbose request id 79dd7033b004655d
+35 http request PUT https://registry.npmjs.org/root-rhythm
+36 http 504 https://registry.npmjs.org/root-rhythm
+37 verbose bad json <html><body><h1>504 Gateway Time-out</h1>
+37 verbose bad json The server didn't respond in time.
+37 verbose bad json </body></html>
+38 error registry error parsing json
+39 verbose headers { 'content-type': 'text/html',
+39 verbose headers   'cache-control': 'max-age=300',
+39 verbose headers   'transfer-encoding': 'chunked',
+39 verbose headers   'accept-ranges': 'bytes',
+39 verbose headers   date: 'Mon, 12 Mar 2018 13:54:21 GMT',
+39 verbose headers   via: '1.1 varnish',
+39 verbose headers   connection: 'keep-alive',
+39 verbose headers   'x-served-by': 'cache-iad2135-IAD',
+39 verbose headers   'x-cache': 'MISS',
+39 verbose headers   'x-cache-hits': '0',
+39 verbose headers   'x-timer': 'S1520862761.025523,VS0,VE100038',
+39 verbose headers   vary: 'Accept-Encoding, Accept' }
+40 info retry will retry, error on last attempt: SyntaxError: Unexpected token < in JSON at position 0
+40 info retry <html><body><h1>504 Gateway Time-out</h1>
+40 info retry The server didn't respond in time.
+40 info retry </body></html>
+41 info attempt registry request try #2 at 9:54:31 AM
+42 verbose request using bearer token for auth
+43 http request PUT https://registry.npmjs.org/root-rhythm
+44 http 403 https://registry.npmjs.org/root-rhythm
+45 verbose headers { 'content-type': 'application/json',
+45 verbose headers   'cache-control': 'max-age=300',
+45 verbose headers   'content-length': '93',
+45 verbose headers   'accept-ranges': 'bytes',
+45 verbose headers   date: 'Mon, 12 Mar 2018 13:54:35 GMT',
+45 verbose headers   via: '1.1 varnish',
+45 verbose headers   connection: 'keep-alive',
+45 verbose headers   'x-served-by': 'cache-iad2639-IAD',
+45 verbose headers   'x-cache': 'MISS',
+45 verbose headers   'x-cache-hits': '0',
+45 verbose headers   'x-timer': 'S1520862871.310289,VS0,VE3966',
+45 verbose headers   vary: 'Accept-Encoding, Accept' }
+46 verbose request invalidating /Users/johnwilliams/.npm/registry.npmjs.org/root-rhythm on PUT
+47 error publish Failed PUT 403
+48 verbose stack Error: You cannot publish over the previously published versions: 1.2.2. : root-rhythm
+48 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+48 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+48 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+48 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+48 verbose stack     at emitTwo (events.js:106:13)
+48 verbose stack     at Request.emit (events.js:191:7)
+48 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+48 verbose stack     at emitOne (events.js:96:13)
+48 verbose stack     at Request.emit (events.js:188:7)
+48 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
+49 verbose statusCode 403
+50 verbose pkgid root-rhythm
+51 verbose cwd /Users/johnwilliams/NewCity/root-rhythm
+52 error Darwin 17.4.0
+53 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+54 error node v6.11.0
+55 error npm  v3.10.10
+56 error code E403
+57 error You cannot publish over the previously published versions: 1.2.2. : root-rhythm
+58 error If you need help, you may report this error at:
+58 error     <https://github.com/npm/npm/issues>
+59 verbose exit [ 1, true ]

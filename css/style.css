@@ -189,7 +189,7 @@ body {
       .grid-wrapper--sidebar-left {
         grid-gap: 1rem;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "main side"; } }
+        grid-template-areas: "main main side"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--sidebar-left {
         grid-template-columns: repeat(4, 1fr);
@@ -230,8 +230,8 @@ body {
         grid-template-areas: "major minor"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-left {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas: "major major major major minor minor"; } }
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "major major minor"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-left {
         grid-gap: 2rem; } } }
@@ -249,8 +249,8 @@ body {
         grid-template-areas: "minor major"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-right {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas: "minor minor major major major major"; } }
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "minor major major"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-right {
         grid-gap: 2rem; } } }

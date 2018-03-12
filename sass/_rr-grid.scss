@@ -160,16 +160,16 @@ $global-width: $rr-maxwidth !default;
         
         $breaks: rr-breakpoint_list();
         @each $break in $breaks {
-            $col-template: rr-columns-for-template($templates,$break);
+            $num_columns: rr-columns-for-template($templates,$break);
             $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
             $grid-areas: rr-areas-for-template($templates,$break);
-            @if $col-template or $grid-gap {
+            @if $num_columns or $grid-gap {
                 @include rr-break-directive($break) {
                     @if $grid-gap {
                         grid-gap: rr-prop-for-breakpoint($break, gutter);
                     }
-                    @if $col-template {
-                        grid-template-columns: $col-template;
+                    @if $num_columns {
+                        grid-template-columns: repeat(#{$num_columns}, 1fr);
                     }
                     @if $grid-areas {
                         grid-template-areas: "#{$grid-areas}";

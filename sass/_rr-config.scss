@@ -68,89 +68,80 @@ $rr-grid-settings: (
 $rr-grids: (
     2-up: (
         m : (
-            columns: repeat(2, 1fr),
-            flex-columns: 2
+            columns: 2,
         )
     ),
     3-up: (
         m : (
-            columns: repeat(3, 1fr),
-            flex-columns: 3
+            columns: 3,
         )
     ),
     4-up: (
         m : (
-            columns: repeat(2, 1fr),
-            flex-columns: 3
+            columns: 2,
         ),
         l : (
-            columns: repeat(4, 1fr),
-            flex-columns: 4
+            columns: 4,
         )
     ),
     5-up: (
         m : (
-            columns: repeat(3, 1fr),
-            flex-columns: 3
+            columns: 3,
         ),
         l : (
-            columns: repeat(5,1fr),
-            flex-columns: 5
+            columns: 5,
         )        
     ),
     6-up: (
         m : (
-            columns: repeat(3, 1fr),
-            flex-columns: 3
+            columns: 3,
         ),
         l : (
-            columns: repeat(6, 1fr),
-            flex-columns: 6
+            columns: 6,
         )        
     ),
     sidebar-left: (
         m: (
-            columns: repeat(3, 1fr),
-            areas: main side,
-            flex-columns: 2
+            columns: 3,
+            areas: main main side
         ),
         l : (
-            columns: repeat(4, 1fr),
+            columns: 4,
             areas: main main main side
         )
     ),
     sidebar-right: (
         m: (
-            columns: repeat(3, 1fr),
+            columns: 3,
             areas: side main main,
             flex-columns: 2
         ),
         l : (
-            columns: repeat(4, 1fr),
+            columns: 4,
             areas: side main main main
         )
     ),
     major-left: (
         m: (
-            columns: repeat(2, 1fr),
+            columns: 2,
             areas: major minor,
             flex-columns: 2
         ),
         l : (
-            columns: repeat(6, 1fr),
-            areas: major major major major minor minor,
+            columns: 3,
+            areas: major major minor,
         )        
     ),
     major-right: (
         m: (
-            columns: repeat(2, 1fr),
+            columns: 2,
             areas: minor major,
             flex-columns: 2
         ),
         l : (
-            columns: repeat(6, 1fr),
-            areas: minor minor major major major major,
+            columns: 3,
+            areas: minor major major,
         )
     )
-) !default;
+);
 
