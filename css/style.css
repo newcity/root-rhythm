@@ -109,7 +109,7 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--2-up {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr; } }
+        grid-template-columns: repeat(2, 1fr); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--2-up {
         grid-gap: 2rem; } } }
@@ -123,7 +123,7 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--3-up {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(3, 1fr); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--3-up {
         grid-gap: 2rem; } } }
@@ -137,10 +137,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--4-up {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr; } }
+        grid-template-columns: repeat(2, 1fr); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--4-up {
-        grid-template-columns: 1fr 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(4, 1fr); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--4-up {
         grid-gap: 2rem; } } }
@@ -154,10 +154,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--5-up {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(3, 1fr); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--5-up {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(5, 1fr); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--5-up {
         grid-gap: 2rem; } } }
@@ -171,10 +171,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--6-up {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(3, 1fr); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--6-up {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; } }
+        grid-template-columns: repeat(6, 1fr); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--6-up {
         grid-gap: 2rem; } } }
@@ -188,11 +188,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--sidebar-left {
         grid-gap: 1rem;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         grid-template-areas: "main side"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--sidebar-left {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         grid-template-areas: "main main main side"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--sidebar-left {
@@ -207,11 +207,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--sidebar-right {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 2fr;
-        grid-template-areas: "side main"; } }
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "side main main"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--sidebar-right {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         grid-template-areas: "side main main main"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--sidebar-right {
@@ -226,11 +226,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--major-left {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         grid-template-areas: "major minor"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-left {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(6, 1fr);
         grid-template-areas: "major major major major minor minor"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-left {
@@ -245,11 +245,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--major-right {
         grid-gap: 1rem;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         grid-template-areas: "minor major"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-right {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(6, 1fr);
         grid-template-areas: "minor minor major major major major"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-right {
