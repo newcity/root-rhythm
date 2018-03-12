@@ -169,7 +169,7 @@ $global-width: $rr-maxwidth !default;
                         grid-gap: rr-prop-for-breakpoint($break, gutter);
                     }
                     @if $num_columns {
-                        grid-template-columns: repeat(#{$num_columns}, 1fr);
+                        grid-template-columns: repeat(#{$num_columns}, minmax(0,1fr));
                     }
                     @if $grid-areas {
                         grid-template-areas: "#{$grid-areas}";
