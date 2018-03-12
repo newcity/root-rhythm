@@ -103,22 +103,22 @@ $rr-grids: (
     sidebar-left: (
         m: (
             columns: 3,
-            areas: main main side
+            areas : side main main
         ),
         l : (
             columns: 4,
-            areas: main main main side
+            areas: side main main main
         )
     ),
     sidebar-right: (
         m: (
             columns: 3,
-            areas: side main main,
+            areas: main main side,
             flex-columns: 2
         ),
         l : (
             columns: 4,
-            areas: side main main main
+            areas: main main main side
         )
     ),
     major-left: (
@@ -143,5 +143,5 @@ $rr-grids: (
             areas: minor major major,
         )
     )
-);
+) !default;
 
