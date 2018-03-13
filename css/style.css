@@ -109,7 +109,7 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--2-up {
         grid-gap: 1rem;
-        grid-template-columns: repeat(2, 1fr); } }
+        grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--2-up {
         grid-gap: 2rem; } } }
@@ -123,7 +123,7 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--3-up {
         grid-gap: 1rem;
-        grid-template-columns: repeat(3, 1fr); } }
+        grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--3-up {
         grid-gap: 2rem; } } }
@@ -137,10 +137,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--4-up {
         grid-gap: 1rem;
-        grid-template-columns: repeat(2, 1fr); } }
+        grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--4-up {
-        grid-template-columns: repeat(4, 1fr); } }
+        grid-template-columns: repeat(4, minmax(0, 1fr)); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--4-up {
         grid-gap: 2rem; } } }
@@ -154,10 +154,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--5-up {
         grid-gap: 1rem;
-        grid-template-columns: repeat(3, 1fr); } }
+        grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--5-up {
-        grid-template-columns: repeat(5, 1fr); } }
+        grid-template-columns: repeat(5, minmax(0, 1fr)); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--5-up {
         grid-gap: 2rem; } } }
@@ -171,10 +171,10 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--6-up {
         grid-gap: 1rem;
-        grid-template-columns: repeat(3, 1fr); } }
+        grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--6-up {
-        grid-template-columns: repeat(6, 1fr); } }
+        grid-template-columns: repeat(6, minmax(0, 1fr)); } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--6-up {
         grid-gap: 2rem; } } }
@@ -188,12 +188,12 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--sidebar-left {
         grid-gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "main main side"; } }
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-areas: "side main main"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--sidebar-left {
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-areas: "main main main side"; } }
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-areas: "side main main main"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--sidebar-left {
         grid-gap: 2rem; } } }
@@ -207,12 +207,12 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--sidebar-right {
         grid-gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "side main main"; } }
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-areas: "main main side"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--sidebar-right {
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-areas: "side main main main"; } }
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-areas: "main main main side"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--sidebar-right {
         grid-gap: 2rem; } } }
@@ -226,11 +226,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--major-left {
         grid-gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-areas: "major minor"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-left {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-areas: "major major minor"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-left {
@@ -245,11 +245,11 @@ body {
     @media screen and (min-width: 35rem) {
       .grid-wrapper--major-right {
         grid-gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-areas: "minor major"; } }
     @media screen and (min-width: 48rem) {
       .grid-wrapper--major-right {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-areas: "minor major major"; } }
     @media screen and (min-width: 76rem) {
       .grid-wrapper--major-right {
@@ -290,30 +290,480 @@ body {
 .slab--transparent + .slab--transparent {
   padding-top: 0; }
 
-h6 {
-  font-size: 1rem;
-  line-height: 2rem; }
-
-h5 {
-  font-size: 1.2rem;
-  line-height: 2.5rem; }
-
-h4 {
-  font-size: 1.4rem;
-  line-height: 2.5rem; }
-
-h3 {
-  font-size: 1.6rem;
-  line-height: 3rem; }
+h1 {
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */
+  font-family: serif;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+  @media screen and (min-width: 48rem) {
+    h1 {
+      font-size: 4.5rem;
+      line-height: 4.5rem; } }
 
 h2 {
-  font-size: 1.8rem;
-  line-height: 3rem; }
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 2rem;
+  /* End base breakpoint */
+  font-family: serif;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+  @media screen and (min-width: 48rem) {
+    h2 {
+      font-size: 3rem;
+      line-height: 3rem; } }
 
-h1 {
-  font-size: 2rem;
-  line-height: 3rem; }
+h3 {
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */
+  font-family: sans-serif;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+  @media screen and (min-width: 48rem) {
+    h3 {
+      font-size: 2.25rem;
+      line-height: 3rem; } }
+
+h4 {
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 2rem;
+  /* End base breakpoint */
+  font-family: sans-serif;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+  @media screen and (min-width: 48rem) {
+    h4 {
+      font-size: 1.5rem;
+      line-height: 2rem; } }
+
+h5 {
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 2rem;
+  /* End base breakpoint */
+  font-family: sans-serif;
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+
+h6 {
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 2rem;
+  /* End base breakpoint */
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+
+.text-xs-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.75rem;
+  line-height: 1rem;
+  /* End base breakpoint */ }
+
+.text-xs-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.75rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+
+.text-xs-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.75rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+
+.text-xs-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.75rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+
+.text-xs-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.75rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+
+.text-s-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.875rem;
+  line-height: 1rem;
+  /* End base breakpoint */ }
+
+.text-s-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+
+.text-s-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.875rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+
+.text-s-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.875rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+
+.text-s-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 0.875rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+
+.text-m-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1rem;
+  line-height: 1rem;
+  /* End base breakpoint */ }
+
+.text-m-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+
+.text-m-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+
+.text-m-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+
+.text-m-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+
+.text-l-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+
+.text-l-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+
+.text-l-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+
+.text-l-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+
+.text-l-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.125rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+
+.text-xl-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+
+.text-xl-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+
+.text-xl-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+
+.text-xl-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+
+.text-xl-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.25rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+
+.text-2xl-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 1.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-2xl-tight {
+      font-size: 1.5rem;
+      line-height: 1.5rem; } }
+
+.text-2xl-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-2xl-medium {
+      font-size: 1.5rem;
+      line-height: 2rem; } }
+
+.text-2xl-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-2xl-wide {
+      font-size: 1.5rem;
+      line-height: 2.5rem; } }
+
+.text-2xl-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-2xl-huge {
+      font-size: 1.5rem;
+      line-height: 3rem; } }
+
+.text-2xl-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.45rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-2xl-redic {
+      font-size: 1.5rem;
+      line-height: 3.5rem; } }
+
+.text-3xl-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-3xl-tight {
+      font-size: 2.25rem;
+      line-height: 2.5rem; } }
+
+.text-3xl-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-3xl-medium {
+      font-size: 2.25rem;
+      line-height: 3rem; } }
+
+.text-3xl-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-3xl-wide {
+      font-size: 2.25rem;
+      line-height: 3.5rem; } }
+
+.text-3xl-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-3xl-huge {
+      font-size: 2.25rem;
+      line-height: 4rem; } }
+
+.text-3xl-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.67rem;
+  line-height: 4rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-3xl-redic {
+      font-size: 2.25rem;
+      line-height: 4.5rem; } }
+
+.text-4xl-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 2rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-4xl-tight {
+      font-size: 3rem;
+      line-height: 3rem; } }
+
+.text-4xl-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-4xl-medium {
+      font-size: 3rem;
+      line-height: 3.5rem; } }
+
+.text-4xl-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-4xl-wide {
+      font-size: 3rem;
+      line-height: 4rem; } }
+
+.text-4xl-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-4xl-huge {
+      font-size: 3rem;
+      line-height: 4.5rem; } }
+
+.text-4xl-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 1.92rem;
+  line-height: 4rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-4xl-redic {
+      font-size: 3rem;
+      line-height: 5rem; } }
+
+.text-5xl-tight {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 2.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-5xl-tight {
+      font-size: 4.5rem;
+      line-height: 4.5rem; } }
+
+.text-5xl-medium {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 3rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-5xl-medium {
+      font-size: 4.5rem;
+      line-height: 5rem; } }
+
+.text-5xl-wide {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 3.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-5xl-wide {
+      font-size: 4.5rem;
+      line-height: 5.5rem; } }
+
+.text-5xl-huge {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 4rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-5xl-huge {
+      font-size: 4.5rem;
+      line-height: 6rem; } }
+
+.text-5xl-redic {
+  background-color: rgba(200, 255, 200, 0.3);
+  /* Base Breakpoint */
+  font-size: 2.24rem;
+  line-height: 4.5rem;
+  /* End base breakpoint */ }
+  @media screen and (min-width: 48rem) {
+    .text-5xl-redic {
+      font-size: 4.5rem;
+      line-height: 6.5rem; } }
 
 p {
+  /* Base Breakpoint */
   font-size: 1rem;
-  line-height: 1.5rem; }
+  line-height: 1.5rem;
+  /* End base breakpoint */ }

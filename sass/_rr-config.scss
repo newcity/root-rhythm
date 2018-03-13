@@ -145,3 +145,62 @@ $rr-grids: (
     )
 ) !default;
 
+$rr-fonts: ( 
+    s : (
+        xs: .75rem,
+        s: .875rem,
+        m: 1rem,
+        l: 1.125rem,
+        xl: 1.25rem,
+        2xl: 1.45rem,
+        3xl: 1.67rem,
+        4xl: 1.92rem,
+        5xl: 2.24rem
+    ),
+    l : (
+        2xl: 1.5rem,
+        3xl: 2.25rem,
+        4xl: 3rem,
+        5xl: 4.5rem
+    )
+) !default;
+
+$rr-headings: (
+    h1 : (
+        size: 5xl,
+        lineheight: tight,
+        font: serif,
+        weight: normal
+    ),
+    h2 : (
+        size: 4xl,
+        lineheight: tight,
+        font: serif,        
+        weight: normal,
+    ),
+    h3 : (
+        size: 3xl,
+        weight: normal,
+    ),
+    h4 : (
+        size: 2xl,        
+        weight: normal,
+    ), 
+    h5 : (
+        size: xl,
+        weight: normal,
+        style: italic
+    ),
+    h6 : (
+        size: l,
+        weight: bold
+    )
+) !default;
+
+$rr-lineheights: ( 
+    tight: 0,
+    medium: 1,
+    wide: 2,
+    huge: 3,
+    redic: 4
+) !default;
