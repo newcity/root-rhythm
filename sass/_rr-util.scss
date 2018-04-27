@@ -30,19 +30,14 @@
 }
 
 // Compute the size of a grid square, computed in the unit of the
-// line height. This is currently simple math but I've abstracted
-// it out into a function in case we want to get more complicated
-// later.
-@function rr-gridbase() {
-    @return $rr-line-height / $rr-grid-divisions;
+// line height. You can pass an optional multiplier.
+@function rr-gridbase($multiplier: 1) {
+    @return ($rr-line-height / $rr-grid-divisions) * $multiplier;
 }
 
-// Turns a number of grid subdivisions ($steps) into a size expressed
-// in the base grid units. For example, `rr-grid-units(1)` should 
-// return `0.5rem` if `$rr-base-grid` is `1rem` and `$rr-grid-divisions`
-// is `2`.
+// deprecated
 @function rr-grid-units($steps) {
-    @return rr-gridbase() * $steps;
+    @return rr-gridbase($steps);
 }
 
 // Takes an offset value (like the width of a border) and a number of 
@@ -53,7 +48,7 @@
     @if $steps < 1 {
         $result : 0;
     } @else {
-        $stepsize: rr-grid-units($steps);
+        $stepsize: rr-gridbase($steps);
         @if comparable($offset, $stepsize) {
             $result: $stepsize - $offset;
         }

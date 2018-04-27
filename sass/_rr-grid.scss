@@ -6,7 +6,7 @@
 @mixin rr-slab {
     $breaks: rr-breakpoint_list();
     @each $break in $breaks {
-        $vspace: rr-grid-units(rr-prop-for-breakpoint($break, vspace));
+        $vspace: rr-gridbase(rr-prop-for-breakpoint($break, vspace));
         @if $break==nth($breaks, 1) {
             padding: $vspace rr-prop-for-breakpoint($break, offset);
         }
@@ -163,6 +163,7 @@ $global-width: $rr-maxwidth !default;
             $num_columns: rr-columns-for-template($templates,$break);
             $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
             $grid-areas: rr-areas-for-template($templates,$break);
+            grid-auto-rows: auto;
             @if $num_columns or $grid-gap {
                 @include rr-break-directive($break) {
                     @if $grid-gap {

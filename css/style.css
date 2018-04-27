@@ -257,8 +257,8 @@ body {
 
 .grid-wrapper__column {
   text-align: center;
-  border: 4px currentColor solid;
-  padding: calc(2rem - 4px) calc(0.5rem - 4px);
+  border: 3px currentColor solid;
+  padding: calc(2rem - 3px) calc(0.5rem - 3px);
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 2.5rem; }
