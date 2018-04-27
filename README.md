@@ -24,7 +24,7 @@ Root-rhythm is a grid-layout/baseline typography library with several helpers in
 
 `@function rr-breakpoint($tag)`: Returns the configuration for a specific breakpoint.
 
-`@function rr-gridbase()`: Returns the size of one grid unit (in the same units as the line-height definition).
+`@function rr-gridbase($multiplier: 1)`: Returns the size of one grid unit (in the same units as the line-height definition). Pass a multiplier to get that many grid units.
 
 `@function rr-grid-remainder($offset, $steps)`: I use this a lot for objects with borders; pass the border width as the offset and the number of grid steps the border needs to go around and this will return a value to use for padding that ensures the border matches the grid layout.
 
