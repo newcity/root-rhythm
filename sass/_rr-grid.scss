@@ -170,41 +170,41 @@ $global-width: $rr-maxwidth !default;
 
     @each $break in $breaks {
         $num_columns: rr-columns-for-template($templates,$break);
-        $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
+        $grid-gap: rr-prop-for-breakpoint($break,gutter);
         $grid-areas: rr-areas-for-template($templates,$break);
         $flex-areas: rr-flex-areas-for-template($templates,$break);
-    
-        @if $num_columns or $grid-gap {
-            @if ($num_columns and $num_columns > 1 and not $flex-initialized) {                
-                display: flex;
-                justify-content: stretch;
-                align-items: stretch;
 
+        @if $num_columns {
+
+            @if ($num_columns and $num_columns > 1) {                
+                $width: percentage(1 / $num_columns);
+
+                @if (not $flex-initialized) {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: stretch;
+                    flex-wrap: wrap;    
+                    $flex-initialized: true;
+                }
+                
                 #{$class-prefix}__column {
-                    flex: 0 1 100%;
-                    &:first-child {
-                        margin-left: 0;
-                    }
-    
-                    &:last-child {
-                        margin-right: 0;
-                    }
-    
+                    flex: 0 1 auto;
+                    width: calc(#{$width} - #{$grid-gap * 2});
+                    
                     @if $grid-gap {
-                        margin: 0 $grid-gap;
+                        margin: 0 0 ($grid-gap * 2);
                     }                    
                 }
-
-                $flex-initialized: true;
-            }
+            } 
         }
 
         @if $flex-areas {
-            @each $foo, $size in $flex-areas {
+            @each $area, $width in $flex-areas {
                 // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
-                size: $size;
-                #{$class-prefix}__column--#{$foo} {
-                    flex: 0 1 #{$size};
+
+                #{$class-prefix}__column--#{$area} {
+                    flex: 0 1 auto;
+                    width: calc(#{$width} - #{$grid-gap});
                 }
             }            
         }
@@ -217,6 +217,7 @@ $global-width: $rr-maxwidth !default;
         #{$class-prefix}__column {
             margin-right: 0;
             margin-left: 0;
+            width: auto;
         }
         
     
