@@ -191,14 +191,16 @@ $global-width: $rr-maxwidth !default;
                     $flex-initialized: true;
                 }
                 
-                #{$class-prefix}__column {
-                    flex: 0 1 auto;
-                    width: calc(#{$width} - #{$grid-gap});
-                    
-                    @if $grid-gap {
-                        margin: 0 0 ($grid-gap * 2);
-                    }                    
-                }            
+                @if (not $flex-areas) {
+                    #{$class-prefix}__column {
+                        flex: 0 1 auto;
+                        width: calc(#{$width} - #{$grid-gap});
+                        
+                        @if $grid-gap {
+                            margin: 0 0 ($grid-gap * 2);
+                        }
+                    }
+                }
             }
 
             @if $flex-areas {
@@ -209,7 +211,7 @@ $global-width: $rr-maxwidth !default;
                         flex: 0 1 auto;
                         width: calc(#{$width} - #{$grid-gap});
                     }
-                }            
+                }
             }
         }
     }
