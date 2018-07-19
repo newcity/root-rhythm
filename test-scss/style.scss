@@ -41,7 +41,7 @@ $styles: map-keys($rr-grids);
 
 @each $name, $template in $rr-grids {
     .grid-wrapper--#{$name} {
-        @include css-grid-columns($template, $class-prefix: 'grid-wrapper');
+        @include css-grid-columns($template, $class-prefix: '.grid-wrapper');
     }
 }
 

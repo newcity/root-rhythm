@@ -180,7 +180,7 @@ $global-width: $rr-maxwidth !default;
                 justify-content: stretch;
                 align-items: stretch;
 
-                .#{$class-prefix}__column {
+                #{$class-prefix}__column {
                     flex: 0 1 100%;
                     &:first-child {
                         margin-left: 0;
@@ -203,7 +203,7 @@ $global-width: $rr-maxwidth !default;
             @each $foo, $size in $flex-areas {
                 // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
                 size: $size;
-                .#{$class-prefix}__column--#{$foo} {
+                #{$class-prefix}__column--#{$foo} {
                     flex: 0 1 #{$size};
                 }
             }            
@@ -214,7 +214,7 @@ $global-width: $rr-maxwidth !default;
     @supports ( grid-template-columns: 1px) {
         display: grid;
 
-        .#{$class-prefix}__column {
+        #{$class-prefix}__column {
             margin-right: 0;
             margin-left: 0;
         }
