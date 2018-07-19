@@ -168,15 +168,19 @@ $global-width: $rr-maxwidth !default;
     $breaks: rr-breakpoint_list();
     $flex-initialized: false;
 
+    #{$class-prefix}__column {
+        box-sizing: border-box;
+        margin-bottom: rr-gridbase(2);
+    }
+
     @each $break in $breaks {
         $num_columns: rr-columns-for-template($templates,$break);
         $grid-gap: rr-prop-for-breakpoint($break,gutter);
         $grid-areas: rr-areas-for-template($templates,$break);
         $flex-areas: rr-flex-areas-for-template($templates,$break);
 
-        @if $num_columns {
-
-            @if ($num_columns and $num_columns > 1) {                
+        @include rr-break-directive($break) {
+            @if $num_columns {
                 $width: percentage(1 / $num_columns);
 
                 @if (not $flex-initialized) {
@@ -189,24 +193,24 @@ $global-width: $rr-maxwidth !default;
                 
                 #{$class-prefix}__column {
                     flex: 0 1 auto;
-                    width: calc(#{$width} - #{$grid-gap * 2});
+                    width: calc(#{$width} - #{$grid-gap});
                     
                     @if $grid-gap {
                         margin: 0 0 ($grid-gap * 2);
                     }                    
-                }
-            } 
-        }
+                }            
+            }
 
-        @if $flex-areas {
-            @each $area, $width in $flex-areas {
-                // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
+            @if $flex-areas {
+                @each $area, $width in $flex-areas {
+                    // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
 
-                #{$class-prefix}__column--#{$area} {
-                    flex: 0 1 auto;
-                    width: calc(#{$width} - #{$grid-gap});
-                }
-            }            
+                    #{$class-prefix}__column--#{$area} {
+                        flex: 0 1 auto;
+                        width: calc(#{$width} - #{$grid-gap});
+                    }
+                }            
+            }
         }
     }
 
@@ -215,8 +219,7 @@ $global-width: $rr-maxwidth !default;
         display: grid;
 
         #{$class-prefix}__column {
-            margin-right: 0;
-            margin-left: 0;
+            margin: 0;
             width: auto;
         }
         
