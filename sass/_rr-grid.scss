@@ -79,6 +79,16 @@
     @return null;
 }
 
+@function rr-flex-areas-for-template($template, $break) {
+    @if map-has-key($template, $break) {
+        $break-template: map-get($template, $break);
+        @if map-has-key($break-template, flex-areas) {
+            @return map-get($break-template, flex-areas);
+        }
+    }
+    @return null;
+}
+
 @function rr-flex-columns-for-template($template, $break) {
     @if map-has-key($template, $break) {
         $break-template: map-get($template, $break);
@@ -154,11 +164,62 @@ $global-width: $rr-maxwidth !default;
     @if not $class-prefix {
         $class-prefix: #{&};
     }
+
+    $breaks: rr-breakpoint_list();
+    $flex-initialized: false;
+
+    @each $break in $breaks {
+        $num_columns: rr-columns-for-template($templates,$break);
+        $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
+        $grid-areas: rr-areas-for-template($templates,$break);
+        $flex-areas: rr-flex-areas-for-template($templates,$break);
+    
+        @if $num_columns or $grid-gap {
+            @if ($num_columns and $num_columns > 1 and not $flex-initialized) {                
+                display: flex;
+                justify-content: stretch;
+                align-items: stretch;
+
+                .#{$class-prefix}__column {
+                    flex: 0 1 100%;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+    
+                    &:last-child {
+                        margin-right: 0;
+                    }
+    
+                    @if $grid-gap {
+                        margin: 0 $grid-gap;
+                    }                    
+                }
+
+                $flex-initialized: true;
+            }
+        }
+
+        @if $flex-areas {
+            @each $foo, $size in $flex-areas {
+                // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
+                size: $size;
+                .#{$class-prefix}__column--#{$foo} {
+                    flex: 0 1 #{$size};
+                }
+            }            
+        }
+    }
+
         
     @supports ( grid-template-columns: 1px) {
         display: grid;
+
+        .#{$class-prefix}__column {
+            margin-right: 0;
+            margin-left: 0;
+        }
         
-        $breaks: rr-breakpoint_list();
+    
         @each $break in $breaks {
             $num_columns: rr-columns-for-template($templates,$break);
             $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
