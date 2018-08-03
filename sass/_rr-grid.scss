@@ -4,104 +4,104 @@
 // Slabs bring their own padding to the party which 
 // we will override in some special circumstances.
 @mixin rr-slab {
-    $breaks: rr-breakpoint_list();
-    @each $break in $breaks {
-        $vspace: rr-gridbase(rr-prop-for-breakpoint($break, vspace));
-        @if $break==nth($breaks, 1) {
-            padding: $vspace rr-prop-for-breakpoint($break, offset);
-        }
-        @else {
-            @include rr-break-directive($break) {
-                padding: $vspace rr-prop-for-breakpoint($break, offset);
-            }
-        }
+  $breaks: rr-breakpoint-list();
+  @each $break in $breaks {
+    $vspace: rr-gridbase(rr-prop-for-breakpoint($break, vspace));
+    @if $break == nth($breaks, 1) {
+      padding: $vspace rr-prop-for-breakpoint($break, offset);
+    } @else {
+      @include rr-break-directive($break) {
+        padding: $vspace rr-prop-for-breakpoint($break, offset);
+      }
     }
+  }
 }
 
 // This creates a slab wrapper constrained to the main content width
 @mixin rr-slab-wrapper($margins: false) {
-    max-width: $rr-maxwidth;
-    margin: 0 auto;
+  max-width: $rr-maxwidth;
+  margin: 0 auto;
+  @if not $margins {
 
-    @if not $margins {
-        // Get rid of top margins on the first child,
-        // bottom margins on the second so those
-        // margins don't pop out of the wrapper.
-        > :first-child {
-            margin-top: 0;
-        }
-
-        > :last-child {
-            margin-bottom: 0;
-        }
+    // Get rid of top margins on the first child,
+    // bottom margins on the second so those
+    // margins don't pop out of the wrapper.
+    > :first-child {
+      margin-top: 0;
     }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 // This creates a full-bleed slab wrapper
 @mixin rr-slab-full-fullbleed {
-    max-width: none;
-    margin: 0;
-    > :first-child {
-        margin-top: 0;
-    }
-    > :last-child {
-        margin-bottom: 0;
-    }
+  max-width: none;
+  margin: 0;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
 }
 
 // Pass this a list of class names (without the '.' prefix) and 
 // adjacency classes that collapse padding between the 
 @mixin rr-slab-adjacency($style-list) {
-    @each $style in $style-list {
-        .#{$style}+.#{$style} {
-            padding-top: 0;
-        }
+  @each $style in $style-list {
+    .#{$style}+.#{$style} {
+      padding-top: 0;
     }
+  }
 }
 
 @function rr-columns-for-template($template, $break) {
-    @if map-has-key($template, $break) {
-        $break-template: map-get($template, $break);
-        @if map-has-key($break-template, columns) {
-            @return map-get($break-template, columns);
-        }
+  @if map-has-key($template, $break) {
+    $break-template: map-get($template, $break);
+    @if map-has-key($break-template, columns) {
+      @return map-get($break-template, columns);
     }
-    @return null;
+  }
+  @return null;
 }
 
 @function rr-areas-for-template($template, $break) {
-    @if map-has-key($template, $break) {
-        $break-template: map-get($template, $break);
-        @if map-has-key($break-template, areas) {
-            @return map-get($break-template, areas);
-        }
+  @if map-has-key($template, $break) {
+    $break-template: map-get($template, $break);
+    @if map-has-key($break-template, areas) {
+      @return map-get($break-template, areas);
     }
-    @return null;
+  }
+  @return null;
 }
 
 @function rr-flex-areas-for-template($template, $break) {
-    @if map-has-key($template, $break) {
-        $break-template: map-get($template, $break);
-        @if map-has-key($break-template, flex-areas) {
-            @return map-get($break-template, flex-areas);
-        }
+  @if map-has-key($template, $break) {
+    $break-template: map-get($template, $break);
+    @if map-has-key($break-template, flex-areas) {
+      @return map-get($break-template, flex-areas);
     }
-    @return null;
+  }
+  @return null;
 }
 
 @function rr-flex-columns-for-template($template, $break) {
-    @if map-has-key($template, $break) {
-        $break-template: map-get($template, $break);
-        @if map-has-key($break-template, flex-columns) {
-            @return map-get($break-template, flex-columns);
-        }
+  @if map-has-key($template, $break) {
+    $break-template: map-get($template, $break);
+    @if map-has-key($break-template, flex-columns) {
+      @return map-get($break-template, flex-columns);
     }
-    @return null;
+  }
+  @return null;
 }
 
 // Code below is by Jesse Janowiak of NewCity; currently 
 // working on integrating it with the existing code.
-
 // CSS GRID MIXINS
 //  `css-grid-columns( $count, $gutter, $gutter-s, $class-prefix, $breakpoint, $rr-support-ie)`
 //  `content-width( $count, $class-prefix, $breakpoint, $rr-support-ie )`
@@ -157,160 +157,85 @@ $global-width: $rr-maxwidth !default;
 //    </div>
 //
 // </div>
+@mixin css-grid-columns($templates, $config: $rr-grid-settings, $class-prefix: null, $reverse: false) {
+  $medium-size: rr-prop-for-breakpoint(m, size);
+  @if not $class-prefix {
+    $class-prefix: #{&};
+  }
 
-@mixin css-grid-columns($templates, $config: $rr-grid-settings, $class-prefix:null, $reverse: false ) {
+  $breaks: rr-breakpoint-list();
+  $flex-initialized: false;
 
-    $medium-size: rr-prop-for-breakpoint(m, size);
-    @if not $class-prefix {
-        $class-prefix: #{&};
+  #{$class-prefix}__column {
+    margin-bottom: rr-gridbase(2);
+    box-sizing: border-box;
+  }
+  @each $break in $breaks {
+    $num-columns: rr-columns-for-template($templates, $break);
+    $grid-gap: rr-prop-for-breakpoint($break, gutter);
+    $grid-areas: rr-areas-for-template($templates, $break);
+    $flex-areas: rr-flex-areas-for-template($templates, $break);
+    @include rr-break-directive($break) {
+      @if $num-columns {
+        $width: percentage(1 / $num-columns);
+        @if (not $flex-initialized) {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: stretch;
+          justify-content: space-between;
+          $flex-initialized: true;
+        }
+        @if (not $flex-areas) {
+          #{$class-prefix}__column {
+            flex: 0 1 auto;
+            width: calc(#{$width} - #{$grid-gap});
+            @if $grid-gap {
+              margin: 0 0 ($grid-gap * 2);
+            }
+          }
+        }
+      }
+      @if $flex-areas {
+        @each $area,
+        $width in $flex-areas {
+          // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
+          #{$class-prefix}__column--#{$area} {
+            flex: 0 1 auto;
+            width: calc(#{$width} - #{$grid-gap});
+          }
+        }
+      }
     }
-
-    $breaks: rr-breakpoint_list();
-    $flex-initialized: false;
+  }
+  @supports ( grid-template-columns: 1px) {
+    display: grid;
 
     #{$class-prefix}__column {
-        box-sizing: border-box;
-        margin-bottom: rr-gridbase(2);
+      width: auto;
+      margin: 0;
     }
-
     @each $break in $breaks {
-        $num_columns: rr-columns-for-template($templates,$break);
-        $grid-gap: rr-prop-for-breakpoint($break,gutter);
-        $grid-areas: rr-areas-for-template($templates,$break);
-        $flex-areas: rr-flex-areas-for-template($templates,$break);
-
+      $num-columns: rr-columns-for-template($templates, $break);
+      $grid-gap: rr-strict-prop-for-breakpoint($break, gutter);
+      $grid-areas: rr-areas-for-template($templates, $break);
+      grid-auto-rows: auto;
+      @if $num-columns or $grid-gap {
         @include rr-break-directive($break) {
-            @if $num_columns {
-                $width: percentage(1 / $num_columns);
-
-                @if (not $flex-initialized) {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: stretch;
-                    flex-wrap: wrap;    
-                    $flex-initialized: true;
-                }
-                
-                @if (not $flex-areas) {
-                    #{$class-prefix}__column {
-                        flex: 0 1 auto;
-                        width: calc(#{$width} - #{$grid-gap});
-                        
-                        @if $grid-gap {
-                            margin: 0 0 ($grid-gap * 2);
-                        }
-                    }
-                }
-            }
-
-            @if $flex-areas {
-                @each $area, $width in $flex-areas {
-                    // try https://hugogiraudel.com/2014/01/27/casting-types-in-sass/
-
-                    #{$class-prefix}__column--#{$area} {
-                        flex: 0 1 auto;
-                        width: calc(#{$width} - #{$grid-gap});
-                    }
-                }
-            }
+          @if $grid-gap {
+            grid-gap: rr-prop-for-breakpoint($break, gutter);
+          }
+          @if $num-columns {
+            grid-template-columns: repeat(#{$num-columns}, minmax(0, 1fr));
+          }
+          @if $grid-areas {
+            grid-template-areas: '#{$grid-areas}';
+          }
         }
+      }
     }
-
-        
-    @supports ( grid-template-columns: 1px) {
-        display: grid;
-
-        #{$class-prefix}__column {
-            margin: 0;
-            width: auto;
-        }
-        
-    
-        @each $break in $breaks {
-            $num_columns: rr-columns-for-template($templates,$break);
-            $grid-gap: rr-strict-prop-for-breakpoint($break,gutter);
-            $grid-areas: rr-areas-for-template($templates,$break);
-            grid-auto-rows: auto;
-            @if $num_columns or $grid-gap {
-                @include rr-break-directive($break) {
-                    @if $grid-gap {
-                        grid-gap: rr-prop-for-breakpoint($break, gutter);
-                    }
-                    @if $num_columns {
-                        grid-template-columns: repeat(#{$num_columns}, minmax(0,1fr));
-                    }
-                    @if $grid-areas {
-                        grid-template-areas: "#{$grid-areas}";
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
-@mixin _rr-ie-css-grid-columns($templates, $class-prefix: '', $reverse: false) {
-    // Old rules for IE
-    display: flex;
-    $breaks: rr-breakpoint_list();
-    @each $break in $breaks {
-        $gutter: rr-prop-for-breakpoint($break, gutter);
-        @include rr-break-directive($break) {
-
-        }
-    }
-}
-
-@mixin _rr-ie-css-grid-columns_old($count: 3, $class-prefix: '', $reverse: false) {
-    $gutter-s: rr-prop-for-breakpoint(s, gutter);
-    $gutter: rr-prop-for-breakpoint(m, gutter);
-    $medium-size: rr-prop-for-breakpoint(m, size);
-
-
-    @media (max-width: #{$medium-size}) {
-        $ms-column-defs: 1fr;
-        @if $gutter-s is not sameas(0) {
-            @for $i from 2 through $count {
-                $ms-column-defs: $ms-column-defs $gutter-s 1fr;
-            }
-        }
-        @else {
-            @for $i from 2 through $count {
-                $ms-column-defs: $ms-column-defs 1fr;
-            }
-        }
-        -ms-grid-columns: $ms-column-defs;
-    }
-    @media (min-width: #{$medium-size}) {
-        display: -ms-grid;
-    }
-    $ms-column-defs: 1fr;
-    @if $gutter is not sameas(0) {
-        @for $i from 2 through $count {
-            $ms-column-defs: $ms-column-defs $gutter 1fr;
-        }
-    }
-    @else {
-        @for $i from 2 through $count {
-            $ms-column-defs: $ms-column-defs 1fr;
-        }
-    }
-    -ms-grid-columns: $ms-column-defs;
-    #{$class-prefix}__column {
-        -ms-grid-column-span: 1;
-        -ms-grid-row: 1;
-        @for $i from 1 through $count {
-            @if ( $reverse) {
-                @include reverse-grid-columns( $count: $count, $class-prefix: $class-prefix, $breakpoint: $breakpoint)
-            }
-            @else {
-                &:nth-child(#{$i}) {
-                    -ms-grid-column: $i * 2 - 1;
-                }
-            }
-        }
-    }
-    -ms-grid-rows: auto;
-}
 
 // `reverse-grid-columns` mixin
 //  Changes the column order of a row created with the `css-grid-columns` from left-to-right
@@ -334,25 +259,26 @@ $global-width: $rr-maxwidth !default;
 // $rr-support-ie:    If set to `false`, the fallback code for IE 10 and 11 will be omitted.
 //                 This results in cleaner stylesheet code if you don't need to support those
 //                 browsers.
-@mixin reverse-grid-columns( $count: 3, $class-prefix: '', $breakpoint: 'medium', $rr-support-ie: true) {
-    @if $class-prefix=='' {
-        $class-prefix: #{&};
-    }
-    $class-prefix: #{'.' + $class-prefix};
-    #{$class-prefix}__column {
-        $ms-columns: $count + $count - 1;
-        @for $i from 0 through $count - 1 {
-            @include breakpoint($breakpoint) {
-                &:nth-child(#{$i + 1}) {
-                    -ms-grid-column: $ms-columns - (($i + 1) * 2 - 1) + 1;
-                    @supports ( grid-column-start: 1) {
-                        grid-column-start: $count - $i;
-                        grid-row: 1;
-                    }
-                }
-            }
+@mixin reverse-grid-columns($count: 3, $class-prefix: '', $breakpoint: 'medium', $rr-support-ie: true) {
+  @if $class-prefix == '' {
+    $class-prefix: #{&};
+  }
+  $class-prefix: #{'.' + $class-prefix};
+
+  #{$class-prefix}__column {
+    $ms-columns: $count + $count - 1;
+    @for $i from 0 through $count - 1 {
+      @include breakpoint($breakpoint) {
+        &:nth-child(#{$i + 1}) {
+          -ms-grid-column: $ms-columns - (($i + 1) * 2 - 1) + 1;
+          @supports ( grid-column-start: 1) {
+            grid-column-start: $count - $i;
+            grid-row: 1;
+          }
         }
+      }
     }
+  }
 }
 
 // `content-width` mixin
@@ -376,28 +302,32 @@ $global-width: $rr-maxwidth !default;
 //      Constrained Content Area
 //    </div>
 // </div>
-@mixin content-width( $max-width: $global-width, $gutter: false, $container-selector: '', $rr-support-ie: true) {
-    @if ( $gutter==false) {
-        $gutter: $gutter-medium;
+@mixin content-width($max-width: $global-width, $gutter: false, $container-selector: '', $rr-support-ie: true) {
+  @if ( $gutter == false) {
+    $gutter: $gutter-medium;
+  }
+  @if ( $container-selector == '') {
+    $container-selector: '#{&}__container';
+  }
+  @if ( $rr-support-ie) {
+    display: -ms-grid;
+    -ms-grid-columns: minmax($gutter, 1fr) minmax(0, $max-width) minmax($gutter, 1fr);
+    -ms-grid-rows: auto;
+
+    #{$container-selector} {
+      -ms-grid-column: 2;
+      grid-column: 2;
+      -ms-grid-column-span: 1;
+      -ms-grid-row: auto;
+      grid-row: auto;
     }
-    @if ( $container-selector=='') {
-        $container-selector: '#{&}__container';
+  }
+  @supports ( grid-template-columns: 1px) {
+    display: grid;
+    grid-template-columns: [left-margin] minmax($gutter, 1fr) [content-column] minmax(0, $max-width) [right-margin] minmax($gutter, 1fr) [viewport-end];
+
+    #{$container-selector} {
+      grid-column-start: content-column;
     }
-    @if ( $rr-support-ie) {
-        display: -ms-grid;
-        -ms-grid-columns: minmax( $gutter, 1fr) minmax( 0, $max-width) minmax( $gutter, 1fr);
-        -ms-grid-rows: auto;
-        #{$container-selector} {
-            -ms-grid-column: 2;
-            -ms-grid-column-span: 1;
-            -ms-grid-row: auto;
-        }
-    }
-    @supports ( grid-template-columns: 1px) {
-        display: grid;
-        grid-template-columns: [left-margin] minmax($gutter, 1fr) [content-column] minmax( 0, $max-width) [right-margin] minmax($gutter, 1fr) [viewport-end];
-        #{$container-selector} {
-            grid-column-start: content-column;
-        }
-    }
+  }
 }

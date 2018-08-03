@@ -105,7 +105,7 @@ $rr-grid-settings: (
         columns: 12
     ), 
     xl: ( 
-        size: $rr_maxwidth + 4rem, 
+        size: $rr-maxwidth + 4rem, 
         gutter: 2rem,
         offset: 0,
         vspace: 4

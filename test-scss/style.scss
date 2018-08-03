@@ -1,89 +1,85 @@
-@import '../sass/index.scss';
+@import '../sass/index';
 
 html {
-    position: relative;
-    @include rr-grid-overlay();
+  position: relative;
+  @include rr-grid-overlay();
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    line-height: $rr-line-height;
+  margin: 0;
+  padding: 0;
+  @include rr-font-compute(r, medium);
 }
 
 .slab {
-    @include rr-slab;
+  @include rr-slab;
 }
 
 .slab--light {
-    background-color: #e6e6e6;
+  background-color: #e6e6e6;
 }
 
 .slab--dark {
-    background-color: #333;
-    color: #fff;
+  background-color: #333;
+  color: #fff;
 }
 
 .slab--brand {
-    background-color: #bada55;
+  background-color: #bada55;
 }
 
 .slab-wrapper {
-    @include rr-slab-wrapper;
+  @include rr-slab-wrapper;
 }
 
 .grid-wrapper {
-    @include rr-slab-wrapper($margins: true);
+  @include rr-slab-wrapper($margins: true);
 }
 
 $styles: map-keys($rr-grids);
-
 @each $name, $template in $rr-grids {
-    .grid-wrapper--#{$name} {
-        @include css-grid-columns($template, $class-prefix: '.grid-wrapper');
-    }
+  .grid-wrapper--#{$name} {
+    @include css-grid-columns($template, $class-prefix: '.grid-wrapper');
+  }
 }
 
 .grid-wrapper__column {
-    text-align: center;
-    background-color: goldenrod;
-    border: 3px currentColor solid;
-    padding: rr-grid-remainder(3px, 4) rr-grid-remainder(3px, 1);
-    font-weight: bold;
-    @include rr-font-line-height(1.5rem, 2);
+  @include rr-font-compute(xl, tight);
+  padding: rr-grid-remainder(3px, 4) rr-grid-remainder(3px, 1);
+  border: 3px currentColor solid;
+  background-color: goldenrod;
+  font-weight: bold;
+  text-align: center;
 }
 
 .grid-wrapper__column--major {
-    grid-area: major;
+  grid-area: major;
 }
 
 .grid-wrapper__column--minor {
-    grid-area: minor;
+  grid-area: minor;
 }
 
 .grid-wrapper__column--article {
-    grid-area: main;
+  grid-area: main;
 }
 
 .grid-wrapper__column--sidebar {
-    grid-area: side;
+  grid-area: side;
 }
 
 $slab-styles: slab--light slab--dark slab--brand slab--wrapper slab--transparent;
-
 @include rr-slab-adjacency($style-list: $slab-styles);
-
-@each $tag,$config in $rr-headings {
-    #{$tag} {
-        @include rr-heading($tag);
-        margin-top: 0;
-        margin-bottom: rr-gridbase() * 2;
-    }
+@each $tag, $config in $rr-headings {
+  #{$tag} {
+    @include rr-heading($tag);
+    margin-top: 0;
+    margin-bottom: rr-gridbase() * 2;
+  }
 }
 
 @include rr-font-samples();
 
 p {
-    @include rr-font-compute(m,medium);
+  @include rr-font-compute(m, medium);
 }
