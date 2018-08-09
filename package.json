@@ -1,6 +1,6 @@
 {
   "name": "root-rhythm",
-  "version": "1.3",
+  "version": "1.3.0",
   "description": "Baseline / column layout utilities for web development. Uses Sass.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
